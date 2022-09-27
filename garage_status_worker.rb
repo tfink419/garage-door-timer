@@ -2,7 +2,6 @@ require 'redis'
 require 'date'
 require 'net/http'
 require 'sidekiq'
-require 'pry'
 
 WEBHOOK_SECRET = ENV['IFTTT_SECRET']
 
@@ -21,8 +20,6 @@ class GarageStatusWorker
     return puts "No Last Opened" unless last_opened
 
     last_opened = DateTime.parse(last_opened).to_time
-
-    binding.pry
 
     if (last_closed && DateTime.parse(last_closed).to_time > last_opened)
       return puts "Last Closed since Last Opened"
