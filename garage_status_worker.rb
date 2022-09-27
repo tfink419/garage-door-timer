@@ -23,9 +23,9 @@ class GarageStatusWorker
 
   def perform(interval)
     last_closed = @@redis.lindex('garage_status:door_closed', 0)
-    @@redis.lrim('garage_status:door_closed', 0, 999)
+    @@redis.ltrim('garage_status:door_closed', 0, 999)
     last_opened = @@redis.lindex('garage_status:door_opened', 0)
-    @@redis.lrim('garage_status:door_opened', 0, 999)
+    @@redis.ltrim('garage_status:door_opened', 0, 999)
     return puts "No Last Opened" unless last_opened
 
     last_opened = DateTime.parse(last_opened).to_time
