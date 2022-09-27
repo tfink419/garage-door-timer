@@ -46,10 +46,14 @@ class RackApp
       created_at = DateTime.now
     end
 
+    puts "created_at: #{body['created_at']}"
+
     case event
     when 'door_opened'
+      puts "Recording 'garage_status:door_opened': #{created_at.iso8601}"
       @@redis.lpush('garage_status:door_opened', created_at.iso8601)
     when 'door_closed'
+      puts "Recording 'garage_status:door_closed': #{created_at.iso8601}"
       @@redis.lpush('garage_status:door_closed', created_at.iso8601)
     end
 
