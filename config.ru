@@ -24,7 +24,7 @@ class RackApp
     rescue
       return [
         400,
-        {"content-Type" => "plain/text"},
+        {"content-type" => "plain/text"},
         ["Bad Request"]
       ]
     end
@@ -32,7 +32,7 @@ class RackApp
     unless body['webhook_secret'] == WEBHOOK_SECRET
       return [
         401,
-        {"content-Type" => "plain/text"},
+        {"content-type" => "plain/text"},
         ["Unauthorized"]
       ]
     end
@@ -59,8 +59,13 @@ class RackApp
 
     [
       200,
-      {"content-Type" => "plain/text"},
-      ["Success"]
+      {"content-type" => "application/json"},
+      [JSON.pretty_generate({
+        status: "Success",
+        event: event,
+        created_at: created_at,
+        created_at_original: body['created_at']
+      })]
     ]
   end
 end
