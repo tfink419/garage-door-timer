@@ -1,2 +1,1 @@
-web: bundle exec rackup -p $PORT
-sidekiq: bundle exec sidekiq -r ./garage_status_worker.rb
+web: bundle exec rackup -p $PORT &; bundle exec sidekiq -r ./garage_status_worker.rb
