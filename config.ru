@@ -39,14 +39,7 @@ class RackApp
 
     event = body['event']
 
-    created_at = nil
-    begin
-      created_at = DateTime.parse(body['created_at'])
-    rescue
-      created_at = DateTime.now
-    end
-
-    puts "created_at: #{body['created_at']}"
+    created_at = DateTime.now
 
     case event
     when 'door_opened'
@@ -59,13 +52,8 @@ class RackApp
 
     [
       200,
-      {"content-type" => "application/json"},
-      [JSON.pretty_generate({
-        status: "Success",
-        event: event,
-        created_at: created_at,
-        created_at_original: body['created_at']
-      })]
+      {"content-type" => "plain/text"},
+      ["Success"]
     ]
   end
 end
