@@ -4,12 +4,19 @@ require 'net/http'
 require 'sidekiq'
 
 WEBHOOK_SECRET = ENV['IFTTT_SECRET']
+REDIS_PROVIDER = if ENV['REDIS_PROVIDER']
+  if ENV['REDIS_PROVIDER'].match(/[\w_]+/)
+    ENV[ENV['REDIS_PROVIDER']]
+  else
+    ENV['REDIS_PROVIDER']
+  end
+end
 
 class GarageStatusWorker
   include Sidekiq::Worker
 
-  @@redis = if ENV['REDIS_PROVIDER']
-      Redis.new(url: ENV['REDIS_PROVIDER'])
+  @@redis = if REDIS_PROVIDER
+      Redis.new(url: REDIS_PROVIDER)
     else
       Redis.new(host: "localhost", port: 6379, db: 11)
     end
