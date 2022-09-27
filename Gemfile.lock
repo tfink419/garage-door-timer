@@ -30,5 +30,8 @@ DEPENDENCIES
   redis (~> 5.0)
   sidekiq (~> 6.0)
 
+RUBY VERSION
+   ruby 3.1.2p20
+
 BUNDLED WITH
    2.3.21
