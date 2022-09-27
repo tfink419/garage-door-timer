@@ -8,8 +8,8 @@ WEBHOOK_SECRET = ENV['IFTTT_SECRET']
 class GarageStatusWorker
   include Sidekiq::Worker
 
-  @@redis = if ENV['REDIS_URL']
-      Redis.new(url: ENV['REDIS_URL'])
+  @@redis = if ENV['REDIS_PROVIDER']
+      Redis.new(url: ENV['REDIS_PROVIDER'])
     else
       Redis.new(host: "localhost", port: 6379, db: 11)
     end
